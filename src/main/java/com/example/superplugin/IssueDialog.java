@@ -5,6 +5,9 @@ import org.json.JSONObject;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -77,8 +80,22 @@ public class IssueDialog extends JDialog {
     }
 
     public void TakeIssue(String code){
-        String full = "https://api.github.com/repos/soforl/DevTools-lab-2/issues";
-        var token = "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";
+        String full = "https://api.github.com/repos/soforl/SuperPlugin/issues";
+        String token;
+
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader("C:\\tmp\\SuperPlugin\\src\\main\\java\\com\\example\\superplugin\\tokk"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            token = reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
         HttpClient client = HttpClient.newHttpClient();
 
         String body = textArea1.getText() + "<br> ```"  + code + "```";
