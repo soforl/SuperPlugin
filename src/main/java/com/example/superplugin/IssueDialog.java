@@ -91,7 +91,6 @@ public class IssueDialog extends JDialog {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(full))
                 .setHeader("Authorization", "Bearer " + token)
-//                .setHeader("Accept", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonString))
                 .build();
 
@@ -103,18 +102,5 @@ public class IssueDialog extends JDialog {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static String getFormDataAsString(Map<String, String> formData) {
-        StringBuilder formBodyBuilder = new StringBuilder();
-        for (Map.Entry<String, String> singleEntry : formData.entrySet()) {
-            if (formBodyBuilder.length() > 0) {
-                formBodyBuilder.append("&");
-            }
-            formBodyBuilder.append(URLEncoder.encode(singleEntry.getKey(), StandardCharsets.UTF_8));
-            formBodyBuilder.append("=");
-            formBodyBuilder.append(URLEncoder.encode(singleEntry.getValue(), StandardCharsets.UTF_8));
-        }
-        return formBodyBuilder.toString();
     }
 }
